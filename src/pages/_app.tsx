@@ -6,6 +6,7 @@ import { ToastContainer, Zoom } from 'react-toastify';
 import { AuthProvider } from 'contexts/auth';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 NProgress.configure({ showSpinner: false });
 
