@@ -64,3 +64,5 @@ export const listIconFooters: { src: string; href: string }[] = [
     href: 'https://whitepaper.ancient8.gg/ancient8/',
   },
 ];
+
+export const LOGO_URL_DEFAULT = '/logo.svg';
