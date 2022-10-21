@@ -1,4 +1,3 @@
-import type { NextPage } from 'next';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { loginValidator } from 'utils/validators';
@@ -10,6 +9,8 @@ import { useAuth } from 'contexts/auth';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
+interface Props {}
+
 type FormValues = LoginDto;
 
 const defaultValues: FormValues = {
@@ -17,7 +18,7 @@ const defaultValues: FormValues = {
   password: '',
 };
 
-const LoginSection: NextPage = () => {
+const LoginSection: React.FC<Props> = () => {
   const router = useRouter();
   const { handleLoginUid, isAuthenticated } = useAuth();
   const {

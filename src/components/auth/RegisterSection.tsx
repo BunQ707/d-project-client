@@ -1,4 +1,3 @@
-import type { NextPage } from 'next';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { registerValidator } from 'utils/validators';
@@ -12,6 +11,8 @@ import { useRouter } from 'next/router';
 import * as api from 'services';
 import { useAlert } from 'hooks';
 
+interface Props {}
+
 type FormValues = RegisterDto;
 
 const defaultValues: FormValues = {
@@ -20,7 +21,7 @@ const defaultValues: FormValues = {
   name: '',
 };
 
-const RegisterSection: NextPage = () => {
+const RegisterSection: React.FC<Props> = () => {
   const router = useRouter();
   const { isAuthenticated, handleLoginUid } = useAuth();
   const { alertError, alertSuccess } = useAlert();
