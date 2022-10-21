@@ -3,12 +3,19 @@ import type { AppProps } from 'next/app';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { ToastContainer, Zoom } from 'react-toastify';
-import { AuthProvider } from 'contexts/auth';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import 'react-toastify/dist/ReactToastify.css';
+import dynamic from 'next/dynamic';
 
 NProgress.configure({ showSpinner: false });
+
+const AuthProvider = dynamic<{ children: React.ReactNode }>(
+  () => import('contexts/auth').then(({ AuthProvider }) => AuthProvider),
+  {
+    ssr: false,
+  },
+);
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
