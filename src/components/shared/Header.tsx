@@ -17,8 +17,7 @@ import { LOGO_URL_DEFAULT } from 'utils/constants';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccontBadge from './AccountBadge';
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = ['Diagnose', 'Food Recommendation'];
 
 const Header = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
@@ -65,7 +64,9 @@ const Header = () => {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                  <Typography textAlign="center" sx={{ textTransform: 'none', fontSize: '18px' }}>
+                    {page}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -87,7 +88,11 @@ const Header = () => {
           <Box sx={{ flexGrow: 1 }}>
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page) => (
-                <Button key={page} onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
+                <Button
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'white', display: 'block', textTransform: 'none', fontSize: '18px' }}
+                >
                   {page}
                 </Button>
               ))}

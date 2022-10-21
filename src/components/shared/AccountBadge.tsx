@@ -3,7 +3,7 @@ import { Avatar, IconButton, Menu, MenuItem, Tooltip, Typography, Box, Button } 
 import { useAuth } from 'contexts/auth';
 import { useRouter } from 'next/router';
 
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Profile'];
 
 const AccontBadge = () => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
@@ -44,9 +44,16 @@ const AccontBadge = () => {
       >
         {settings.map((setting) => (
           <MenuItem key={setting} onClick={handleCloseUserMenu}>
-            <Typography textAlign="center">{setting}</Typography>
+            <Typography textAlign="center" sx={{ textTransform: 'none', fontSize: '18px' }}>
+              {setting}
+            </Typography>
           </MenuItem>
         ))}
+        <MenuItem onClick={handleLogout}>
+          <Typography textAlign="center" sx={{ textTransform: 'none', fontSize: '18px' }}>
+            Logout
+          </Typography>
+        </MenuItem>
       </Menu>
     </Box>
   ) : (
