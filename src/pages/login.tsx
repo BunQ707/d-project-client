@@ -10,7 +10,7 @@ const LoginPage: NextPage = () => {
   const onSwitchTab = (event: React.ChangeEvent<{}>, newTabId: number) => setTabId(newTabId);
 
   return (
-    <Layout className="" title="D-Project | Home Page">
+    <Layout className="" title={`D-Project | ${tabId === 0 ? 'Login' : 'Register'}`}>
       {/* <LoadingScreen loading={loading} /> */}
       <Grid container direction="column">
         <Grid container justifyContent="center">
