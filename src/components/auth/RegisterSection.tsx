@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { registerValidator } from 'utils/validators';
-import { RegisterDto } from 'utils/auth.dto';
+import { RegisterDto } from 'services/auth.dto';
 import { PoolInputLabel } from 'utils/formConstant';
 import Input from 'components/form/Input';
 import { Button } from '@mui/material';

@@ -2,7 +2,7 @@ import { createContext, useState, useContext, useCallback, ReactNode } from 'rea
 import { useEffect } from 'react';
 import * as api from 'services';
 import { useAlert } from 'hooks';
-import { LoginDto } from 'utils/auth.dto';
+import { LoginDto } from 'services/auth.dto';
 import { checkIsInvalidToken } from 'utils/helper';
 
 interface Props {

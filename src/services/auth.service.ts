@@ -1,4 +1,4 @@
-import { LoginDto, RegisterDto } from 'utils/auth.dto';
+import { LoginDto, RegisterDto } from 'services/auth.dto';
 import { apiClient } from '../utils/axios';
 
 export interface LoginResponse {
