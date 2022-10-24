@@ -2,10 +2,6 @@ export const FETCH_INTERVAL = 20 * 1000;
 export const MAX_PROGRESS = 100;
 export const MIN_PROGRESS_PASS_FULL = 99.98;
 
-export const TOKEN_TO_DECIMALS = 9;
-export const SOL_DECIMALS = 9;
-export const MAX_REWARD_SELECT = 4;
-
 export const API_CONFIGS = {
   END_POINT: process.env.NEXT_PUBLIC_API_URL_BACKEND,
   REQUEST_METHOD: {
@@ -23,12 +19,6 @@ export const API_CONFIGS = {
     NOT_FOUND: 404,
   },
 };
-
-export enum ErrorMessages {
-  UserRejectRequest = 'User rejected the request.',
-  TransactionTimeout = 'Transaction timeout.',
-  UnKnow = 'Something went wrong. Please try again later.',
-}
 
 export const listIconFooters: { src: string; href: string }[] = [
   {
