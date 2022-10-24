@@ -6,6 +6,16 @@ const ERROR_MESSAGE_STRING_LENGTH_50 = 'It is not longer than 50 characters';
 const ERROR_MESSAGE_STRING_LENGTH_6 = 'It is not shorter than 6 characters';
 const ERROR_MESSAGE_STRING_LENGTH_255 = 'It is not longer than 255 characters';
 const ERROR_MESSAGE_NOT_STRIM = 'This field must be a trimmed string.';
+const ERROR_MESSAGE_POSITIVE_NUMBER = 'This field must be greater than 0';
+
+const numberPositiveCanNull = (value: number | undefined) => {
+  if (!value) return true;
+  try {
+    return value > 0;
+  } catch {
+    return false;
+  }
+};
 
 export const loginValidator = yup.object().shape({
   email: yup.string().required(ERROR_MESSAGE_REQUIRED).email(ERROR_MESSAGE_NOT_EMAIL),
@@ -38,4 +48,66 @@ export const registerValidator = yup.object().shape({
       },
     }),
 });
+
+export const predictValidator = yup.object().shape({
+  Pregnancies: yup.number().test({
+    name: 'positive',
+    message: ERROR_MESSAGE_POSITIVE_NUMBER,
+    test: (value) => {
+      if (!value) return true;
+      try {
+        return value > 0;
+      } catch {
+        return false;
+      }
+    },
+  }),
+
+  Insulin: yup.number().test({
+    name: 'positive',
+    message: ERROR_MESSAGE_POSITIVE_NUMBER,
+    test: numberPositiveCanNull,
+  }),
+
+  Height: yup.number().test({
+    name: 'positive',
+    message: ERROR_MESSAGE_POSITIVE_NUMBER,
+    test: numberPositiveCanNull,
+  }),
+
+  Weight: yup.number().test({
+    name: 'positive',
+    message: ERROR_MESSAGE_POSITIVE_NUMBER,
+    test: numberPositiveCanNull,
+  }),
+
+  Age: yup.number().test({
+    name: 'positive',
+    message: ERROR_MESSAGE_POSITIVE_NUMBER,
+    test: numberPositiveCanNull,
+  }),
+
+  Glucose: yup.number().test({
+    name: 'positive',
+    message: ERROR_MESSAGE_POSITIVE_NUMBER,
+    test: numberPositiveCanNull,
+  }),
+
+  BloodPressure: yup.number().test({
+    name: 'positive',
+    message: ERROR_MESSAGE_POSITIVE_NUMBER,
+    test: numberPositiveCanNull,
+  }),
+
+  DiabetesPedigreeFunction: yup.number().test({
+    name: 'positive',
+    message: ERROR_MESSAGE_POSITIVE_NUMBER,
+    test: numberPositiveCanNull,
+  }),
+
+  SkinThickness: yup.number().test({
+    name: 'positive',
+    message: ERROR_MESSAGE_POSITIVE_NUMBER,
+    test: numberPositiveCanNull,
+  }),
 });
