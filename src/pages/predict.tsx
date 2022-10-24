@@ -8,22 +8,25 @@ import { PoolInputLabel } from 'utils/formConstant';
 import Input from 'components/form/Input';
 import { Button } from '@mui/material';
 import { useAuth } from 'contexts/auth';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { PredictDto } from 'services/user.dto';
 import NumberInput from 'components/form/NumberInput';
 import * as api from 'services/user.service';
 import { PredictionResult } from 'utils/constants';
+import { useAlert } from 'hooks';
 
 type FormValues = PredictDto;
 
 const defaultValues: FormValues = {};
 
 const DiagnosePage: NextPage = () => {
+  const [result, setResult] = useState<boolean | null>(null);
+  const [user, setUser] = useState<api.ProfileResult | null>(null);
+
   const router = useRouter();
   const { isAuthenticated } = useAuth();
-
-  const [result, setResult] = useState<string>('');
+  const { alertError } = useAlert();
 
   const {
     control: controller,
@@ -43,27 +46,72 @@ const DiagnosePage: NextPage = () => {
   };
 
   const handlePredict = async (data: FormValues) => {
-    if (!isAuthenticated)
+    try {
+      const res = await api.predict(data);
       try {
-        const res = await api.predict(data);
-
-        if ([true, false].includes(res?.data?.prediction))
-          setResult(res.data.prediction == true ? PredictionResult.T : PredictionResult.F);
-        else throw new Error('Something wrong, failed to diagnose.');
+        const resU = await api.updateProfile(data);
+        if (resU?.data?._id) setUser(resU?.data);
       } catch (error) {
         console.error(error);
       }
 
-    try {
-      const res = await api.updateProfile(data);
-
-      if ([true, false].includes(res?.data?.profile?.prediction))
-        setResult(res.data.profile.prediction == true ? PredictionResult.T : PredictionResult.F);
+      if ([true, false].includes(res?.data?.prediction)) setResult(res.data.prediction);
       else throw new Error('Something wrong, failed to diagnose.');
     } catch (error) {
       console.error(error);
     }
   };
+
+  const fetchProfile = useCallback(async (): Promise<boolean> => {
+    try {
+      if (!isAuthenticated) return false;
+
+      // setLoading(true);
+
+      const res = await api.getProfile();
+      if (!res?.data?._id) throw new Error('no id');
+      else setUser(res.data);
+
+      return true;
+    } catch (error: any) {
+      console.error(error);
+      // setLoading(false);
+      alertError('Get user data failed!');
+      return false;
+    }
+  }, [isAuthenticated]);
+
+  useEffect(() => {
+    fetchProfile();
+  }, [fetchProfile]);
+
+  useEffect(() => {
+    if (!user || !user.profile) return;
+    try {
+      // setLoading(true);
+
+      if (user.profile?.Pregnancies > 0) setValue('Pregnancies', user.profile.Pregnancies);
+      if (user.profile?.Insulin > 0) setValue('Insulin', user.profile.Insulin);
+      if (user.profile?.Weight > 0) setValue('Weight', user.profile.Weight);
+      if (user.profile?.Height > 0) setValue('Height', user.profile.Height);
+      if (user.profile?.Age > 0) setValue('Age', user.profile.Age);
+      if (user.profile?.Glucose > 0) setValue('Glucose', user.profile.Glucose);
+      if (user.profile?.BloodPressure > 0) setValue('BloodPressure', user.profile.BloodPressure);
+      if (user.profile?.DiabetesPedigreeFunction > 0)
+        setValue('DiabetesPedigreeFunction', user.profile.DiabetesPedigreeFunction);
+      if (user.profile?.SkinThickness > 0) setValue('SkinThickness', user.profile.SkinThickness);
+
+      if (result === null && [true, false].includes(user.profile?.prediction)) setResult(user.profile?.prediction);
+
+      // setValue('is_listed', is_listed || false);
+    } catch (error: any) {
+      alertError('Error when parsing data');
+      console.error(error);
+    } finally {
+      // setLoading(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   return (
     <Layout className="" title="D-Project | Diagnose">
@@ -195,7 +243,9 @@ const DiagnosePage: NextPage = () => {
           />
 
           <Button onClick={handleSubmit(onSubmit)}>Submit</Button>
-          {result && <Typography color={'black'}>{result}</Typography>}
+          {result !== null && (
+            <Typography color={'black'}>{result == true ? PredictionResult.T : PredictionResult.F}</Typography>
+          )}
         </form>
       </Grid>
     </Layout>
