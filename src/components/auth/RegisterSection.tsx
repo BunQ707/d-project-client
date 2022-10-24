@@ -13,12 +13,15 @@ import { useAlert } from 'hooks';
 
 interface Props {}
 
-type FormValues = RegisterDto;
+type FormValues = RegisterDto & {
+  password2: string;
+};
 
 const defaultValues: FormValues = {
   email: '',
   password: '',
-  name: '',
+  // name: '',
+  password2: '',
 };
 
 const RegisterSection: React.FC<Props> = () => {
@@ -79,16 +82,27 @@ const RegisterSection: React.FC<Props> = () => {
         />
         <Input
           control={controller}
-          label={PoolInputLabel.password}
+          label={PoolInputLabel.password_new}
           name="password"
           isError={Boolean(errors?.password)}
           errorMessage={errors?.password?.message}
           type="password"
-          tooltipHelp={PoolInputLabel.password_tooltip}
+          tooltipHelp={PoolInputLabel.password_new_tooltip}
           disableHelp
           required
         />
         <Input
+          control={controller}
+          label={PoolInputLabel.password_confirm}
+          name="password2"
+          isError={Boolean(errors?.password2)}
+          errorMessage={errors?.password2?.message}
+          type="password"
+          tooltipHelp={PoolInputLabel.password_confirm}
+          disableHelp
+          required
+        />
+        {/* <Input
           control={controller}
           label={PoolInputLabel.name}
           name="name"
@@ -96,7 +110,7 @@ const RegisterSection: React.FC<Props> = () => {
           errorMessage={errors?.name?.message}
           tooltipHelp={PoolInputLabel.name_tooltip}
           required
-        />
+        /> */}
         <Button onClick={handleSubmit(onSubmit)}>Submit</Button>
       </form>
     </div>

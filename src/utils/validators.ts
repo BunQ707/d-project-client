@@ -21,5 +21,21 @@ export const registerValidator = yup.object().shape({
     .max(50, ERROR_MESSAGE_STRING_LENGTH_50)
     .strict()
     .trim(ERROR_MESSAGE_NOT_STRIM),
-  name: yup.string().required(ERROR_MESSAGE_REQUIRED).max(255, ERROR_MESSAGE_STRING_LENGTH_255),
+  // name: yup.string().required(ERROR_MESSAGE_REQUIRED).max(255, ERROR_MESSAGE_STRING_LENGTH_255),
+
+  password2: yup
+    .string()
+    .required(ERROR_MESSAGE_REQUIRED)
+    .test({
+      name: 'test_password',
+      message: 'Password incorrect',
+      test: (value, context) => {
+        if (!value) return true;
+
+        if (context.parent.password) return value === context.parent.password;
+
+        return true;
+      },
+    }),
+});
 });

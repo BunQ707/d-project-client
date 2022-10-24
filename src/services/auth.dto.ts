@@ -4,5 +4,5 @@ export type LoginDto = {
 };
 
 export type RegisterDto = LoginDto & {
-  name: string;
+  // name: string;
 };
