@@ -8,6 +8,7 @@ import { Button } from '@mui/material';
 import { useAuth } from 'contexts/auth';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import queryString from 'query-string';
 
 interface Props {}
 
@@ -39,7 +40,14 @@ const LoginSection: React.FC<Props> = () => {
   const handleSubmitLogin = async (data: FormValues) => await handleLoginUid(data);
 
   useEffect(() => {
-    if (isAuthenticated) router.push('/');
+    if (isAuthenticated) {
+      const { redirectUrl } = queryString.parse(location.search);
+      if (redirectUrl) {
+        router.push(`${redirectUrl}`);
+      } else {
+        router.push('/');
+      }
+    }
   }, [isAuthenticated]);
 
   return (

@@ -59,7 +59,7 @@ const AccontBadge = () => {
   ) : (
     <Box sx={{ flexGrow: 0 }}>
       {router?.pathname !== '/login' && (
-        <Button color="inherit" onClick={() => router.push('/login')}>
+        <Button color="inherit" onClick={() => router.push(`/login?redirectUrl=${window.location.pathname}`)}>
           Login
         </Button>
       )}
