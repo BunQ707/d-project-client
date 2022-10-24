@@ -71,3 +71,14 @@ export const PredictionResult = {
   T: 'You are likely to have diabetes',
   F: 'There is little basis for diagnosing you with diabetes',
 };
+
+export const funtionalPages = [
+  {
+    name: 'Predict',
+    url: '/predict',
+  },
+  {
+    name: 'Food Recommendation',
+    url: '/recommendation',
+  },
+];
