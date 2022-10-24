@@ -16,17 +16,34 @@ import {
 import { LOGO_URL_DEFAULT } from 'utils/constants';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccontBadge from './AccountBadge';
+import { useRouter } from 'next/router';
 
-const pages = ['Diagnose', 'Food Recommendation'];
+const pages = [
+  {
+    name: 'Diagnose',
+    url: '/diagnose',
+  },
+  {
+    name: 'Food Recommendation',
+    url: '/recommendation',
+  },
+];
 
 const Header = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+  const router = useRouter();
+
   const handleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
+  };
+
+  const handleNavigate = (url: string) => {
+    handleCloseNavMenu();
+    router.push(url);
   };
 
   return (
@@ -63,9 +80,9 @@ const Header = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem key={page.name} onClick={() => handleNavigate(page.url)}>
                   <Typography textAlign="center" sx={{ textTransform: 'none', fontSize: '18px' }}>
-                    {page}
+                    {page.name}
                   </Typography>
                 </MenuItem>
               ))}
@@ -89,11 +106,11 @@ const Header = () => {
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page) => (
                 <Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
+                  key={page.name}
+                  onClick={() => handleNavigate(page.url)}
                   sx={{ my: 2, color: 'white', display: 'block', textTransform: 'none', fontSize: '18px' }}
                 >
-                  {page}
+                  {page.name}
                 </Button>
               ))}
             </Box>
