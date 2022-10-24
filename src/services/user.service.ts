@@ -18,3 +18,7 @@ export interface PredictResponse {
 export const predict = (params: PredictDto): Promise<PredictResponse> => {
   return apiClient.post('predict', params);
 };
+
+export const updateProfile = (params: any) => {
+  return apiClient.put('profile', params);
+};

@@ -43,12 +43,22 @@ const DiagnosePage: NextPage = () => {
   };
 
   const handlePredict = async (data: FormValues) => {
-    try {
-      const res = await api.predict(data);
+    if (!isAuthenticated)
+      try {
+        const res = await api.predict(data);
 
-      console.log(res.data.prediction == true ? PredictionResult.T : PredictionResult.F);
-      if ([true, false].includes(res?.data?.prediction))
-        setResult(res.data.prediction == true ? PredictionResult.T : PredictionResult.F);
+        if ([true, false].includes(res?.data?.prediction))
+          setResult(res.data.prediction == true ? PredictionResult.T : PredictionResult.F);
+        else throw new Error('Something wrong, failed to diagnose.');
+      } catch (error) {
+        console.error(error);
+      }
+
+    try {
+      const res = await api.updateProfile(data);
+
+      if ([true, false].includes(res?.data?.profile?.prediction))
+        setResult(res.data.profile.prediction == true ? PredictionResult.T : PredictionResult.F);
       else throw new Error('Something wrong, failed to diagnose.');
     } catch (error) {
       console.error(error);
