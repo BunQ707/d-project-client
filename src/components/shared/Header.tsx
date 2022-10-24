@@ -20,8 +20,8 @@ import { useRouter } from 'next/router';
 
 const pages = [
   {
-    name: 'Diagnose',
-    url: '/diagnose',
+    name: 'Predict',
+    url: '/predict',
   },
   {
     name: 'Food Recommendation',

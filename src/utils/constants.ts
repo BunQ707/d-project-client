@@ -69,5 +69,5 @@ export const LOGO_URL_DEFAULT = '/logo.svg';
 
 export const PredictionResult = {
   T: 'You are likely to have diabetes',
-  F: 'There is no basis to draw conclusions',
+  F: 'There is little basis for diagnosing you with diabetes',
 };
