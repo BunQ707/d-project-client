@@ -36,7 +36,7 @@ const Header = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" color="secondary">
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ height: '70px' }}>
           <Box sx={{ display: { xs: 'flex', md: 'none' }, pr: '24px' }}>
@@ -70,7 +70,7 @@ const Header = () => {
             >
               {funtionalPages.map((page) => (
                 <MenuItem key={page.name} onClick={() => handleNavigate(page.url)}>
-                  <Typography textAlign="center" sx={{ textTransform: 'none', fontSize: '18px' }}>
+                  <Typography textAlign="center" sx={{ textTransform: 'none', fontSize: '18px' }} color={'primary'}>
                     {page.name}
                   </Typography>
                 </MenuItem>
@@ -97,7 +97,8 @@ const Header = () => {
                 <Button
                   key={page.name}
                   onClick={() => handleNavigate(page.url)}
-                  sx={{ my: 2, color: 'white', display: 'block', textTransform: 'none', fontSize: '18px' }}
+                  sx={{ my: 2, display: 'block', textTransform: 'none', fontSize: '18px' }}
+                  color={'primary'}
                 >
                   {page.name}
                 </Button>
