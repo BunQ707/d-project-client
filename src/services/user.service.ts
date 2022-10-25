@@ -1,5 +1,5 @@
 import { apiClient } from '../utils/axios';
-import { PredictDto } from './user.dto';
+import { PredictDto, RecommendDto } from './user.dto';
 
 export interface PredictResult {
   Pregnancies: number;
@@ -37,4 +37,8 @@ export const updateProfile = (params: any): Promise<ProfileResponse> => {
 
 export const getProfile = (): Promise<ProfileResponse> => {
   return apiClient.get('profile');
+};
+
+export const recommend = (params: RecommendDto) => {
+  return apiClient.post('recommendNutriPlan', params);
 };

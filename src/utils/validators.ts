@@ -111,3 +111,24 @@ export const predictValidator = yup.object().shape({
     test: numberPositiveCanNull,
   }),
 });
+
+export const RecommendValidator = yup.object().shape({
+  Gender: yup.number(),
+
+  DiabetesType: yup.number(),
+
+  ActivityFactor: yup.number().test({
+    name: 'between 0 and 1',
+    message: 'This field must be between 0 and 1',
+    test: (value) => {
+      if (typeof value !== 'number') return true;
+      return value >= 0 && value <= 1;
+    },
+  }),
+
+  Age: yup.number(),
+
+  Height: yup.number(),
+
+  Weight: yup.number(),
+});

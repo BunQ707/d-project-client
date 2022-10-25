@@ -17,3 +17,17 @@ export type PredictDto = {
 
   SkinThickness?: number;
 };
+
+export type RecommendDto = {
+  Gender?: number;
+
+  DiabetesType?: number;
+
+  ActivityFactor?: number;
+
+  Age?: number;
+
+  Height?: number;
+
+  Weight?: number;
+};
