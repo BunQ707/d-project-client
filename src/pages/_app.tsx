@@ -7,6 +7,8 @@ import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import 'react-toastify/dist/ReactToastify.css';
 import dynamic from 'next/dynamic';
+import { ThemeProvider } from '@mui/material/styles';
+import { theme } from 'utils/theme';
 
 NProgress.configure({ showSpinner: false });
 
@@ -36,7 +38,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <AuthProvider>
         <Component {...pageProps} />
       </AuthProvider>
@@ -49,7 +51,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         autoClose={2000}
         transition={Zoom}
       />
-    </>
+    </ThemeProvider>
   );
 }
 
