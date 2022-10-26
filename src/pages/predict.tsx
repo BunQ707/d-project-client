@@ -15,6 +15,7 @@ import NumberInput from 'components/form/NumberInput';
 import * as api from 'services/user.service';
 import { PredictionResult } from 'utils/constants';
 import { useAlert } from 'hooks';
+import { Box, Container } from '@mui/system';
 
 type FormValues = PredictDto;
 
@@ -115,139 +116,151 @@ const DiagnosePage: NextPage = () => {
 
   return (
     <Layout className="" title="D-Project | Diagnose">
-      {/* <LoadingScreen loading={loading} /> */}
-      <Grid container direction="column">
-        <form>
-          <NumberInput
-            onChange={() => trigger('Pregnancies')}
-            onValueChange={(values: any) => {
-              setValue('Pregnancies', values.floatValue);
-            }}
-            control={controller}
-            label={'Pregnancies'}
-            name="Pregnancies"
-            isError={Boolean(errors?.Pregnancies)}
-            errorMessage={errors?.Pregnancies?.message}
-            tooltipHelp={'Number of times pregnant'}
-            decimalScale={5}
-          />
-          <NumberInput
-            onChange={() => trigger('Insulin')}
-            onValueChange={(values: any) => {
-              setValue('Insulin', values.floatValue);
-            }}
-            control={controller}
-            label={'Insulin'}
-            name="Insulin"
-            isError={Boolean(errors?.Insulin)}
-            errorMessage={errors?.Insulin?.message}
-            tooltipHelp={'2-Hour serum insulin'}
-            endIcon={<InputAdornment position="end">mu U/ml</InputAdornment>}
-            decimalScale={5}
-          />
-          <NumberInput
-            onChange={() => trigger('Height')}
-            onValueChange={(values: any) => {
-              setValue('Height', values.floatValue);
-            }}
-            control={controller}
-            label={'Height'}
-            name="Height"
-            isError={Boolean(errors?.Height)}
-            errorMessage={errors?.Height?.message}
-            tooltipHelp={'Height in cm'}
-            endIcon={<InputAdornment position="end">Cm</InputAdornment>}
-            decimalScale={5}
-          />
-          <NumberInput
-            onChange={() => trigger('Weight')}
-            onValueChange={(values: any) => {
-              setValue('Weight', values.floatValue);
-            }}
-            control={controller}
-            label={'Weight'}
-            name="Weight"
-            isError={Boolean(errors?.Weight)}
-            errorMessage={errors?.Weight?.message}
-            tooltipHelp={'Weight in kg'}
-            endIcon={<InputAdornment position="end">Kg</InputAdornment>}
-            decimalScale={5}
-          />
-          <NumberInput
-            onChange={() => trigger('Age')}
-            onValueChange={(values: any) => {
-              setValue('Age', values.floatValue);
-            }}
-            control={controller}
-            label={'Age'}
-            name="Age"
-            isError={Boolean(errors?.Age)}
-            errorMessage={errors?.Age?.message}
-            tooltipHelp={'Age by years'}
-            endIcon={<InputAdornment position="end">Years</InputAdornment>}
-            decimalScale={0}
-          />
-          <NumberInput
-            onChange={() => trigger('Glucose')}
-            onValueChange={(values: any) => {
-              setValue('Glucose', values.floatValue);
-            }}
-            control={controller}
-            label={'Glucose'}
-            name="Glucose"
-            isError={Boolean(errors?.Glucose)}
-            errorMessage={errors?.Glucose?.message}
-            tooltipHelp={'Plasma glucose concentration a 2 hours in an oral glucose tolerance test'}
-            decimalScale={5}
-          />
-          <NumberInput
-            onChange={() => trigger('BloodPressure')}
-            onValueChange={(values: any) => {
-              setValue('BloodPressure', values.floatValue);
-            }}
-            control={controller}
-            label={'Blood Pressure'}
-            name="BloodPressure"
-            isError={Boolean(errors?.BloodPressure)}
-            errorMessage={errors?.BloodPressure?.message}
-            tooltipHelp={'Diastolic blood pressure'}
-            endIcon={<InputAdornment position="end">mm Hg</InputAdornment>}
-            decimalScale={5}
-          />
-          <NumberInput
-            onChange={() => trigger('DiabetesPedigreeFunction')}
-            onValueChange={(values: any) => {
-              setValue('DiabetesPedigreeFunction', values.floatValue);
-            }}
-            control={controller}
-            label={'Diabetes Pedigree Function'}
-            name="DiabetesPedigreeFunction"
-            isError={Boolean(errors?.DiabetesPedigreeFunction)}
-            errorMessage={errors?.DiabetesPedigreeFunction?.message}
-            tooltipHelp={'Diabetes Pedigree Function'}
-            decimalScale={5}
-          />
-          <NumberInput
-            onChange={() => trigger('SkinThickness')}
-            onValueChange={(values: any) => {
-              setValue('SkinThickness', values.floatValue);
-            }}
-            control={controller}
-            label={'Skin Thickness'}
-            name="SkinThickness"
-            isError={Boolean(errors?.SkinThickness)}
-            errorMessage={errors?.SkinThickness?.message}
-            tooltipHelp={'Triceps skin fold thickness'}
-            endIcon={<InputAdornment position="end">mm</InputAdornment>}
-            decimalScale={5}
-          />
+      <Container>
+        {/* <LoadingScreen loading={loading} /> */}
+        <Box
+          sx={{
+            maxWidth: '800px',
+            border: '1px solid green',
+            borderRadius: '10px',
+            p: '50px',
+            mt: '50px',
+            mr: 'auto',
+            ml: 'auto',
+          }}
+        >
+          <Grid container direction="column" component={'form'} sx={{ rowGap: '10px' }}>
+            <NumberInput
+              onChange={() => trigger('Pregnancies')}
+              onValueChange={(values: any) => {
+                setValue('Pregnancies', values.floatValue);
+              }}
+              control={controller}
+              label={'Pregnancies'}
+              name="Pregnancies"
+              isError={Boolean(errors?.Pregnancies)}
+              errorMessage={errors?.Pregnancies?.message}
+              tooltipHelp={'Number of times pregnant'}
+              decimalScale={5}
+            />
+            <NumberInput
+              onChange={() => trigger('Insulin')}
+              onValueChange={(values: any) => {
+                setValue('Insulin', values.floatValue);
+              }}
+              control={controller}
+              label={'Insulin'}
+              name="Insulin"
+              isError={Boolean(errors?.Insulin)}
+              errorMessage={errors?.Insulin?.message}
+              tooltipHelp={'2-Hour serum insulin'}
+              endIcon={<InputAdornment position="end">mu U/ml</InputAdornment>}
+              decimalScale={5}
+            />
+            <NumberInput
+              onChange={() => trigger('Height')}
+              onValueChange={(values: any) => {
+                setValue('Height', values.floatValue);
+              }}
+              control={controller}
+              label={'Height'}
+              name="Height"
+              isError={Boolean(errors?.Height)}
+              errorMessage={errors?.Height?.message}
+              tooltipHelp={'Height in cm'}
+              endIcon={<InputAdornment position="end">Cm</InputAdornment>}
+              decimalScale={5}
+            />
+            <NumberInput
+              onChange={() => trigger('Weight')}
+              onValueChange={(values: any) => {
+                setValue('Weight', values.floatValue);
+              }}
+              control={controller}
+              label={'Weight'}
+              name="Weight"
+              isError={Boolean(errors?.Weight)}
+              errorMessage={errors?.Weight?.message}
+              tooltipHelp={'Weight in kg'}
+              endIcon={<InputAdornment position="end">Kg</InputAdornment>}
+              decimalScale={5}
+            />
+            <NumberInput
+              onChange={() => trigger('Age')}
+              onValueChange={(values: any) => {
+                setValue('Age', values.floatValue);
+              }}
+              control={controller}
+              label={'Age'}
+              name="Age"
+              isError={Boolean(errors?.Age)}
+              errorMessage={errors?.Age?.message}
+              tooltipHelp={'Age by years'}
+              endIcon={<InputAdornment position="end">Years</InputAdornment>}
+              decimalScale={0}
+            />
+            <NumberInput
+              onChange={() => trigger('Glucose')}
+              onValueChange={(values: any) => {
+                setValue('Glucose', values.floatValue);
+              }}
+              control={controller}
+              label={'Glucose'}
+              name="Glucose"
+              isError={Boolean(errors?.Glucose)}
+              errorMessage={errors?.Glucose?.message}
+              tooltipHelp={'Plasma glucose concentration a 2 hours in an oral glucose tolerance test'}
+              decimalScale={5}
+            />
+            <NumberInput
+              onChange={() => trigger('BloodPressure')}
+              onValueChange={(values: any) => {
+                setValue('BloodPressure', values.floatValue);
+              }}
+              control={controller}
+              label={'Blood Pressure'}
+              name="BloodPressure"
+              isError={Boolean(errors?.BloodPressure)}
+              errorMessage={errors?.BloodPressure?.message}
+              tooltipHelp={'Diastolic blood pressure'}
+              endIcon={<InputAdornment position="end">mm Hg</InputAdornment>}
+              decimalScale={5}
+            />
+            <NumberInput
+              onChange={() => trigger('DiabetesPedigreeFunction')}
+              onValueChange={(values: any) => {
+                setValue('DiabetesPedigreeFunction', values.floatValue);
+              }}
+              control={controller}
+              label={'Diabetes Pedigree Function'}
+              name="DiabetesPedigreeFunction"
+              isError={Boolean(errors?.DiabetesPedigreeFunction)}
+              errorMessage={errors?.DiabetesPedigreeFunction?.message}
+              tooltipHelp={'Diabetes Pedigree Function'}
+              decimalScale={5}
+            />
+            <NumberInput
+              onChange={() => trigger('SkinThickness')}
+              onValueChange={(values: any) => {
+                setValue('SkinThickness', values.floatValue);
+              }}
+              control={controller}
+              label={'Skin Thickness'}
+              name="SkinThickness"
+              isError={Boolean(errors?.SkinThickness)}
+              errorMessage={errors?.SkinThickness?.message}
+              tooltipHelp={'Triceps skin fold thickness'}
+              endIcon={<InputAdornment position="end">mm</InputAdornment>}
+              decimalScale={5}
+            />
 
-          <Button onClick={handleSubmit(onSubmit)}>Submit</Button>
-          {result !== null && (
-            <Typography color={'black'}>{result == true ? PredictionResult.T : PredictionResult.F}</Typography>
-          )}
-        </form>
-      </Grid>
+            <Button onClick={handleSubmit(onSubmit)}>Submit</Button>
+            {result !== null && (
+              <Typography color={'black'}>{result == true ? PredictionResult.T : PredictionResult.F}</Typography>
+            )}
+          </Grid>
+        </Box>
+      </Container>
     </Layout>
   );
 };
