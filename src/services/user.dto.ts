@@ -23,7 +23,7 @@ export type RecommendDto = {
 
   DiabetesType?: number;
 
-  ActivityFactor?: number;
+  // ActivityFactor?: number;
 
   Age?: number;
 

@@ -19,11 +19,11 @@ type FormValues = RecommendDto;
 const defaultValues: FormValues = {
   Gender: 0,
   DiabetesType: 0,
-  ActivityFactor: 0,
+  // ActivityFactor: 0,
 };
 
 const RecommendationPage: NextPage = () => {
-  const [result, setResult] = useState<boolean | null>(null);
+  const [result, setResult] = useState<string[]>([]);
   const [user, setUser] = useState<api.ProfileResult | null>(null);
 
   const router = useRouter();
@@ -49,17 +49,17 @@ const RecommendationPage: NextPage = () => {
 
   const handleRecommend = async (data: FormValues) => {
     try {
-      const res = await api.recommend(data);
-      // try {
-      //   const resU = await api.updateProfile(data);
-      //   if (resU?.data?._id) setUser(resU?.data);
-      // } catch (error) {
-      //   console.error(error);
-      // }
+      const resR = await api.recommend(data);
 
-      // if ([true, false].includes(res?.data?.prediction)) setResult(res.data.prediction);
-      // else throw new Error('Something wrong, failed to diagnose.');
-      console.log(res);
+      if (resR?.data?.rules?.length > 0) setResult(resR?.data?.rules);
+      else throw new Error('Something wrong, failed to recommend.');
+
+      try {
+        const resP = await api.updateProfile(data);
+        if (resP?.data?._id) setUser(resP?.data);
+      } catch (error) {
+        console.error(error);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -92,21 +92,11 @@ const RecommendationPage: NextPage = () => {
     if (!user || !user.profile) return;
     try {
       // setLoading(true);
-
-      // if (user.profile?.Pregnancies > 0) setValue('Pregnancies', user.profile.Pregnancies);
-      // if (user.profile?.Insulin > 0) setValue('Insulin', user.profile.Insulin);
       if (user.profile?.Weight > 0) setValue('Weight', user.profile.Weight);
       if (user.profile?.Height > 0) setValue('Height', user.profile.Height);
       if (user.profile?.Age > 0) setValue('Age', user.profile.Age);
-      // if (user.profile?.Glucose > 0) setValue('Glucose', user.profile.Glucose);
-      // if (user.profile?.BloodPressure > 0) setValue('BloodPressure', user.profile.BloodPressure);
-      // if (user.profile?.DiabetesPedigreeFunction > 0)
-      //   setValue('DiabetesPedigreeFunction', user.profile.DiabetesPedigreeFunction);
-      // if (user.profile?.SkinThickness > 0) setValue('SkinThickness', user.profile.SkinThickness);
-
-      // if (result === null && [true, false].includes(user.profile?.prediction)) setResult(user.profile?.prediction);
-
-      // setValue('is_listed', is_listed || false);
+      if (user.profile?.DiabetesType > 0) setValue('DiabetesType', user.profile.DiabetesType);
+      if (user.profile?.Gender > 0) setValue('Gender', user.profile.Gender);
     } catch (error: any) {
       alertError('Error when parsing data');
       console.error(error);
@@ -144,22 +134,22 @@ const RecommendationPage: NextPage = () => {
               labelList={[
                 {
                   label: 'Diabetes Type 1',
-                  value: 0,
+                  value: 1,
                 },
                 {
                   label: 'Diabetes Type 2',
-                  value: 0.5,
+                  value: 2,
                 },
                 {
-                  label: 'Prediabetes',
-                  value: 1,
+                  label: 'At risk of diabetes',
+                  value: 0,
                 },
               ]}
               defaultValue={0}
             />
           </Grid>
 
-          <NumberInput
+          {/* <NumberInput
             onChange={() => trigger('ActivityFactor')}
             onValueChange={(values: any) => {
               setValue('ActivityFactor', values.floatValue);
@@ -174,7 +164,7 @@ const RecommendationPage: NextPage = () => {
             min={0}
             max={1}
             required
-          />
+          /> */}
           <NumberInput
             onChange={() => trigger('Height')}
             onValueChange={(values: any) => {
@@ -222,9 +212,14 @@ const RecommendationPage: NextPage = () => {
           />
 
           <Button onClick={handleSubmit(onSubmit)}>Submit</Button>
-          {/* {result !== null && (
-            <Typography color={'black'}>{result == true ? PredictionResult.T : PredictionResult.F}</Typography>
-          )} */}
+          <>
+            {result.length > 0 &&
+              result.map((r, index) => (
+                <Typography color={'black'} key={index}>
+                  {r}
+                </Typography>
+              ))}
+          </>
         </form>
       </Grid>
     </Layout>

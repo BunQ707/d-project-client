@@ -17,6 +17,12 @@ const numberPositiveCanNull = (value: number | undefined) => {
   }
 };
 
+const numberNotNull = (value: number | undefined) => {
+  // if (!value) return value === 0;
+  // return value >= 0;
+  console.log(value);
+};
+
 export const loginValidator = yup.object().shape({
   email: yup.string().required(ERROR_MESSAGE_REQUIRED).email(ERROR_MESSAGE_NOT_EMAIL),
   password: yup.string().required(ERROR_MESSAGE_REQUIRED).strict().trim(ERROR_MESSAGE_NOT_STRIM),
@@ -117,18 +123,18 @@ export const RecommendValidator = yup.object().shape({
 
   DiabetesType: yup.number(),
 
-  ActivityFactor: yup.number().test({
-    name: 'between 0 and 1',
-    message: 'This field must be between 0 and 1',
-    test: (value) => {
-      if (typeof value !== 'number') return true;
-      return value >= 0 && value <= 1;
-    },
-  }),
+  // ActivityFactor: yup.number().test({
+  //   name: 'between 0 and 1',
+  //   message: 'This field must be between 0 and 1',
+  //   test: (value) => {
+  //     if (typeof value !== 'number') return true;
+  //     return value >= 0 && value <= 1;
+  //   },
+  // }),
 
-  Age: yup.number(),
+  Age: yup.number().required().min(0, 'This field must be grater than 0'),
 
-  Height: yup.number(),
+  Height: yup.number().required().min(0, 'This field must be grater than 0'),
 
-  Weight: yup.number(),
+  Weight: yup.number().required().min(0, 'This field must be grater than 0'),
 });
