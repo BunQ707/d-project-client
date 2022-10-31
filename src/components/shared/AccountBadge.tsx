@@ -3,7 +3,7 @@ import { Avatar, IconButton, Menu, MenuItem, Tooltip, Typography, Box, Button } 
 import { useAuth } from 'contexts/auth';
 import { useRouter } from 'next/router';
 
-const settings = ['Profile'];
+const settings: string[] = [];
 
 const AccontBadge = () => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
@@ -59,7 +59,11 @@ const AccontBadge = () => {
   ) : (
     <Box sx={{ flexGrow: 0 }}>
       {router?.pathname !== '/login' && (
-        <Button color="inherit" onClick={() => router.push(`/login?redirectUrl=${window.location.pathname}`)}>
+        <Button
+          onClick={() => router.push(`/login?redirectUrl=${window.location.pathname}`)}
+          sx={{ textTransform: 'none', fontSize: '18px' }}
+          color={'primary'}
+        >
           Login
         </Button>
       )}
