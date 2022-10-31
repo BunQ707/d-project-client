@@ -1,4 +1,4 @@
-import { Grid, InputAdornment, Typography } from '@mui/material';
+import { Box, Container, Grid, InputAdornment, Typography } from '@mui/material';
 import Layout from 'components/shared/Layout';
 import type { NextPage } from 'next';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -7,7 +7,6 @@ import { RecommendValidator } from 'utils/validators';
 import { Button } from '@mui/material';
 import { useAuth } from 'contexts/auth';
 import { useCallback, useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import { RecommendDto } from 'services/user.dto';
 import NumberInput from 'components/form/NumberInput';
 import * as api from 'services/user.service';
@@ -26,7 +25,6 @@ const RecommendationPage: NextPage = () => {
   const [result, setResult] = useState<string[]>([]);
   const [user, setUser] = useState<api.ProfileResult | null>(null);
 
-  const router = useRouter();
   const { isAuthenticated } = useAuth();
   const { alertError } = useAlert();
 
@@ -108,9 +106,23 @@ const RecommendationPage: NextPage = () => {
 
   return (
     <Layout className="" title="D-Project | Food Recommendation">
-      <Grid container direction="column">
-        <form>
-          <Grid item style={{ height: '60px' }}>
+      <Container>
+        <Box sx={{ mt: '20px' }}>
+          <Typography sx={{ fontSize: '30px', textAlign: 'center', color: '#1E7610' }}>Recommendations</Typography>
+        </Box>
+        <Box
+          sx={{
+            maxWidth: '800px',
+            border: '1px solid green',
+            borderRadius: '10px',
+            p: '30px',
+            mt: '20px',
+            mr: 'auto',
+            ml: 'auto',
+            backgroundColor: 'white',
+          }}
+        >
+          <Grid container direction="column" component={'form'} sx={{ rowGap: '10px' }}>
             <RadioInput
               control={controller}
               name="Gender"
@@ -126,8 +138,6 @@ const RecommendationPage: NextPage = () => {
               ]}
               defaultValue={0}
             />
-          </Grid>
-          <Grid item style={{ height: '60px' }}>
             <RadioInput
               control={controller}
               name="DiabetesType"
@@ -147,9 +157,8 @@ const RecommendationPage: NextPage = () => {
               ]}
               defaultValue={0}
             />
-          </Grid>
 
-          {/* <NumberInput
+            {/* <NumberInput
             onChange={() => trigger('ActivityFactor')}
             onValueChange={(values: any) => {
               setValue('ActivityFactor', values.floatValue);
@@ -165,63 +174,96 @@ const RecommendationPage: NextPage = () => {
             max={1}
             required
           /> */}
-          <NumberInput
-            onChange={() => trigger('Height')}
-            onValueChange={(values: any) => {
-              setValue('Height', values.floatValue);
-            }}
-            control={controller}
-            label={'Height'}
-            name="Height"
-            isError={Boolean(errors?.Height)}
-            errorMessage={errors?.Height?.message}
-            tooltipHelp={'Height in cm'}
-            endIcon={<InputAdornment position="end">Cm</InputAdornment>}
-            decimalScale={5}
-            required
-          />
-          <NumberInput
-            onChange={() => trigger('Weight')}
-            onValueChange={(values: any) => {
-              setValue('Weight', values.floatValue);
-            }}
-            control={controller}
-            label={'Weight'}
-            name="Weight"
-            isError={Boolean(errors?.Weight)}
-            errorMessage={errors?.Weight?.message}
-            tooltipHelp={'Weight in kg'}
-            endIcon={<InputAdornment position="end">Kg</InputAdornment>}
-            decimalScale={5}
-            required
-          />
-          <NumberInput
-            onChange={() => trigger('Age')}
-            onValueChange={(values: any) => {
-              setValue('Age', values.floatValue);
-            }}
-            control={controller}
-            label={'Age'}
-            name="Age"
-            isError={Boolean(errors?.Age)}
-            errorMessage={errors?.Age?.message}
-            tooltipHelp={'Age by years'}
-            endIcon={<InputAdornment position="end">Years</InputAdornment>}
-            decimalScale={0}
-            required
-          />
+            <NumberInput
+              onChange={() => trigger('Height')}
+              onValueChange={(values: any) => {
+                setValue('Height', values.floatValue);
+              }}
+              control={controller}
+              label={'Height'}
+              name="Height"
+              isError={Boolean(errors?.Height)}
+              errorMessage={errors?.Height?.message}
+              tooltipHelp={'Height in cm'}
+              endIcon={<InputAdornment position="end">Cm</InputAdornment>}
+              decimalScale={5}
+              required
+            />
+            <NumberInput
+              onChange={() => trigger('Weight')}
+              onValueChange={(values: any) => {
+                setValue('Weight', values.floatValue);
+              }}
+              control={controller}
+              label={'Weight'}
+              name="Weight"
+              isError={Boolean(errors?.Weight)}
+              errorMessage={errors?.Weight?.message}
+              tooltipHelp={'Weight in kg'}
+              endIcon={<InputAdornment position="end">Kg</InputAdornment>}
+              decimalScale={5}
+              required
+            />
+            <NumberInput
+              onChange={() => trigger('Age')}
+              onValueChange={(values: any) => {
+                setValue('Age', values.floatValue);
+              }}
+              control={controller}
+              label={'Age'}
+              name="Age"
+              isError={Boolean(errors?.Age)}
+              errorMessage={errors?.Age?.message}
+              tooltipHelp={'Age by years'}
+              endIcon={<InputAdornment position="end">Years</InputAdornment>}
+              decimalScale={0}
+              required
+            />
 
-          <Button onClick={handleSubmit(onSubmit)}>Submit</Button>
-          <>
-            {result.length > 0 &&
-              result.map((r, index) => (
-                <Typography color={'black'} key={index}>
-                  {r}
-                </Typography>
-              ))}
-          </>
-        </form>
-      </Grid>
+            <Button
+              onClick={handleSubmit(onSubmit)}
+              variant="contained"
+              sx={{ width: '200px', margin: 'auto', mt: '18px' }}
+            >
+              Submit
+            </Button>
+            {/* <>
+              {result.length > 0 &&
+                result.map((r, index) => (
+                  <Typography color={'black'} key={index}>
+                    {r}
+                  </Typography>
+                ))}
+            </> */}
+          </Grid>
+        </Box>
+        {result.length > 0 && (
+          <Box
+            sx={{
+              maxWidth: '800px',
+              border: '1px solid green',
+              borderRadius: '10px',
+              p: '30px',
+              mt: '20px',
+              mr: 'auto',
+              ml: 'auto',
+              backgroundColor: 'white',
+            }}
+          >
+            <Box sx={{ display: 'flex', flexDirection: 'row', columnGap: '15px', alignItems: 'center' }}>
+              <Typography sx={{ fontSize: '20px', color: '#1E7610' }}>Result:</Typography>
+              <Box sx={{ flexGrow: 1 }}>
+                {result.length > 0 &&
+                  result.map((r, index) => (
+                    <Typography color={'black'} key={index} sx={{ textAlign: 'justify' }}>
+                      {'-'} {r}
+                    </Typography>
+                  ))}
+              </Box>
+            </Box>
+          </Box>
+        )}
+      </Container>
     </Layout>
   );
 };
