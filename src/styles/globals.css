@@ -101,3 +101,8 @@ a {
   bottom: 0px;
   left: 0px;
 }
+.bg_img_main {
+  min-height: 100vh;
+  overflow: auto;
+  background-color: #e0e0e0;
+}
