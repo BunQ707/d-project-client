@@ -255,8 +255,8 @@ const RecommendationPage: NextPage = () => {
               <Box sx={{ flexGrow: 1 }}>
                 {result.length > 0 &&
                   result.map((r, index) => (
-                    <Typography color={'black'} key={index} sx={{ textAlign: 'justify' }}>
-                      {'-'} {r}
+                    <Typography color={'black'} key={index} sx={{ textAlign: 'justify' }} component="li">
+                      {r}
                     </Typography>
                   ))}
               </Box>
