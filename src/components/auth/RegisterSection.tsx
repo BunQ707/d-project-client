@@ -4,7 +4,7 @@ import { registerValidator } from 'utils/validators';
 import { RegisterDto } from 'services/auth.dto';
 import { PoolInputLabel } from 'utils/formConstant';
 import Input from 'components/form/Input';
-import { Button } from '@mui/material';
+import { Button, Grid } from '@mui/material';
 import { useAuth } from 'contexts/auth';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
@@ -68,41 +68,40 @@ const RegisterSection: React.FC<Props> = () => {
   }, [isAuthenticated]);
 
   return (
-    <div>
-      <form>
-        <Input
-          control={controller}
-          label={PoolInputLabel.email}
-          name="email"
-          isError={Boolean(errors?.email)}
-          errorMessage={errors?.email?.message}
-          tooltipHelp={PoolInputLabel.email_tooltip}
-          disableHelp
-          required
-        />
-        <Input
-          control={controller}
-          label={PoolInputLabel.password_new}
-          name="password"
-          isError={Boolean(errors?.password)}
-          errorMessage={errors?.password?.message}
-          type="password"
-          tooltipHelp={PoolInputLabel.password_new_tooltip}
-          disableHelp
-          required
-        />
-        <Input
-          control={controller}
-          label={PoolInputLabel.password_confirm}
-          name="password2"
-          isError={Boolean(errors?.password2)}
-          errorMessage={errors?.password2?.message}
-          type="password"
-          tooltipHelp={PoolInputLabel.password_confirm}
-          disableHelp
-          required
-        />
-        {/* <Input
+    <Grid container direction="column" component={'form'} sx={{ rowGap: '10px', mt: '10px' }}>
+      <Input
+        control={controller}
+        label={PoolInputLabel.email}
+        name="email"
+        isError={Boolean(errors?.email)}
+        errorMessage={errors?.email?.message}
+        tooltipHelp={PoolInputLabel.email_tooltip}
+        disableHelp
+        required
+      />
+      <Input
+        control={controller}
+        label={PoolInputLabel.password_new}
+        name="password"
+        isError={Boolean(errors?.password)}
+        errorMessage={errors?.password?.message}
+        type="password"
+        tooltipHelp={PoolInputLabel.password_new_tooltip}
+        disableHelp
+        required
+      />
+      <Input
+        control={controller}
+        label={PoolInputLabel.password_confirm}
+        name="password2"
+        isError={Boolean(errors?.password2)}
+        errorMessage={errors?.password2?.message}
+        type="password"
+        tooltipHelp={PoolInputLabel.password_confirm}
+        disableHelp
+        required
+      />
+      {/* <Input
           control={controller}
           label={PoolInputLabel.name}
           name="name"
@@ -111,9 +110,10 @@ const RegisterSection: React.FC<Props> = () => {
           tooltipHelp={PoolInputLabel.name_tooltip}
           required
         /> */}
-        <Button onClick={handleSubmit(onSubmit)}>Submit</Button>
-      </form>
-    </div>
+      <Button onClick={handleSubmit(onSubmit)} variant="contained" sx={{ width: '200px', margin: 'auto', mt: '18px' }}>
+        Submit
+      </Button>
+    </Grid>
   );
 };
 
