@@ -118,15 +118,19 @@ const DiagnosePage: NextPage = () => {
     <Layout className="" title="D-Project | Diagnose">
       <Container>
         {/* <LoadingScreen loading={loading} /> */}
+        <Box sx={{ mt: '20px' }}>
+          <Typography sx={{ fontSize: '30px', textAlign: 'center', color: '#1E7610' }}>Diabetes Prediction</Typography>
+        </Box>
         <Box
           sx={{
             maxWidth: '800px',
             border: '1px solid green',
             borderRadius: '10px',
-            p: '50px',
-            mt: '50px',
+            p: '30px',
+            mt: '20px',
             mr: 'auto',
             ml: 'auto',
+            backgroundColor: 'white',
           }}
         >
           <Grid container direction="column" component={'form'} sx={{ rowGap: '10px' }}>
@@ -253,13 +257,36 @@ const DiagnosePage: NextPage = () => {
               endIcon={<InputAdornment position="end">mm</InputAdornment>}
               decimalScale={5}
             />
-
-            <Button onClick={handleSubmit(onSubmit)}>Submit</Button>
-            {result !== null && (
-              <Typography color={'black'}>{result == true ? PredictionResult.T : PredictionResult.F}</Typography>
-            )}
+            {/* <Box sx={{}}> */}
+            <Button
+              onClick={handleSubmit(onSubmit)}
+              variant="contained"
+              sx={{ width: '200px', margin: 'auto', mt: '18px' }}
+            >
+              Submit
+            </Button>
+            {/* </Box> */}
           </Grid>
         </Box>
+        {result !== null && (
+          <Box
+            sx={{
+              maxWidth: '800px',
+              border: '1px solid green',
+              borderRadius: '10px',
+              p: '30px',
+              mt: '20px',
+              mr: 'auto',
+              ml: 'auto',
+              backgroundColor: 'white',
+            }}
+          >
+            <Box sx={{ display: 'flex', flexDirection: 'row', columnGap: '15px', alignItems: 'center' }}>
+              <Typography sx={{ fontSize: '20px', color: '#1E7610' }}>Result:</Typography>
+              <Typography>{result == true ? PredictionResult.T : PredictionResult.F}</Typography>
+            </Box>
+          </Box>
+        )}
       </Container>
     </Layout>
   );

@@ -58,8 +58,8 @@ export const listIconFooters: { src: string; href: string }[] = [
 export const LOGO_URL_DEFAULT = '/logo.svg';
 
 export const PredictionResult = {
-  T: 'You are likely to have diabetes',
-  F: 'There is little basis for diagnosing you with diabetes',
+  T: 'You are likely to have diabetes.',
+  F: 'There is little basis for diagnosing you with diabetes.',
 };
 
 export const funtionalPages = [
